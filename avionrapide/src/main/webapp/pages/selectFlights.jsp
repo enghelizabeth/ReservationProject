@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Select Departing Flight</title>
-<link rel="stylesheet" href="styling.css">
+<link rel="stylesheet" href="./styles/styling.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -26,7 +26,7 @@
 	<!--  <div><img src="c:url value='/images/ARlogo.png'"/></div> -->
 	<div>
 	
-		<form  action="returningFlight" method="post">
+		<form  action="selectedflights" method="post">
 			<table class="table table-hover table-dark table-striped">
 				<thead>
 					<tr style="background-color: #33adff">
