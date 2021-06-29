@@ -1,0 +1,38 @@
+@charset "ISO-8859-1";
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	justify-content: center;
+	background-color: #0099ff;
+}
+
+.formBox {
+	background-color: #acb8c2;
+	/* Center the form on the page */ 
+	margin : 0 auto;
+	width: 1480px;
+	height: 350px;
+	/* Form outline */
+	padding: 1em;
+	border: 1px solid #CCC;
+	border-radius: 1em;
+	margin: 0 auto;
+}
+
+.colPadding{
+	padding-top:10px;
+	padding-bottom:10px;
+}
