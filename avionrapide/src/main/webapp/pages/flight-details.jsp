@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
-<link rel="stylesheet" href="styles/styling.css">
+<link rel="stylesheet" href="./pages/styles/styling.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
