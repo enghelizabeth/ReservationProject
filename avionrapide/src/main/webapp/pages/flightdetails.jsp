@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
+<script src="jqueryFunctions.js"></script>
 <link rel="stylesheet" href="./styles/styling.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -24,31 +25,31 @@
 		<div class="row" style="font-size:20px"><strong>Depart:</strong></div>
 		<div class="row">
 			<div class="col-3 colPadding">
-				AirportCode: <input type="text" name="originAirport" value="Departing Airport"/>
+				AirportCode: <input type="text" id="valueText" name="originAirport" placeholder="Departing Airport"/>
 			</div>
 			<div class="col-3 colPadding">
-				City: <input type="text" name="originCity" value="Departing City"/>
+				City: <input type="text" name="originCity" placeholder="Departing City"/>
 			</div>
 			<div class="col-3 colPadding">
-				State: <input type="text" name="originState" value="Departing State"/>
+				State: <input type="text" name="originState" placeholder="Departing State"/>
 			</div>
 			<div class="col-3 colPadding">
-				Zipcode: <input type="text" name="originZipcode" value="Departing Zipcode"/>
+				Zipcode: <input type="text" name="originZipcode" placeholder="Departing Zipcode"/>
 			</div>
 		</div>
 		<div class="row" style="font-size:20px"><strong>Arrive:</strong></div>
 		<div class="row">
 			<div class="col-3 colPadding">
-				Airport Code: <input type="text" name="destinationAirport" value="Arriving Airport"/>
+				Airport Code: <input type="text" name="destinationAirport" placeholder="Arriving Airport"/>
 			</div>
 			<div class="col-3 colPadding">
-				City: <input type="text" name="destinationCity" value="Arriving City"/>
+				City: <input type="text" name="destinationCity" placeholder="Arriving City"/>
 			</div>
 			<div class="col-3 colPadding">
-				State: <input type="text" name="destinationState" value="Arriving State"/>
+				State: <input type="text" name="destinationState" placeholder="Arriving State"/>
 			</div>
 			<div class="col-3 colPadding">
-				Zipcode: <input type="text" name="destinationZipcode" value="Arriving Zipcode"/>
+				Zipcode: <input type="text" name="destinationZipcode" placeholder="Arriving Zipcode"/>
 			</div>
 		</div>
 			<div class="row">
@@ -59,13 +60,14 @@
 					Return Date: <input type="date" name="returnDate" />
 				</div>
 				<div class="col-3 colPadding">
-					Travelers: <input type="text" name="numTravelers" value="Number of Travelers"/>
+					Travelers: <input type="text" name="numOfTravelers" placeholder="Number of Travelers"/>
 				</div>
 				<div class="col-3 colPadding"></div>
 					<div>
-					<input ="submit" value="Let's Book It!" class="btn btn-primary" />
+					
 				</div>
 			</div>
+			<input type="submit" value="Let's Book It!" class="btn btn-primary" />
 	</form>
 
 	<footer class="footer">

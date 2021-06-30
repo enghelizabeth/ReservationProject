@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet({"","/home"})
+@WebServlet({"", "/home"})
 public class HomeServlet extends HttpServlet {
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("./pages/flight-details.jsp").forward(req, resp);
+		resp.sendRedirect("pages/flightdetails.jsp");
 	}
 }

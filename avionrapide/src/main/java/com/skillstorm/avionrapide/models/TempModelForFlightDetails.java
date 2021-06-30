@@ -9,18 +9,20 @@ public class TempModelForFlightDetails {
 	}
 
 	public TempModelForFlightDetails(int originAirportId, int destinationAirportId, LocalDate departDate,
-			LocalDate returnDate) {
+			LocalDate returnDate, int numOfTravelers) {
 		super();
 		this.originAirportId = originAirportId;
 		this.destinationAirportId = destinationAirportId;
 		this.departDate = departDate;
 		this.returnDate = returnDate;
+		this.numOfTravelers = numOfTravelers;
 	}
 
 	private int originAirportId;
 	private int destinationAirportId;
 	private LocalDate departDate;
 	private LocalDate returnDate;
+	private int numOfTravelers;
 	
 	public int getOriginAirportId() {
 		return originAirportId;
@@ -46,12 +48,18 @@ public class TempModelForFlightDetails {
 	public void setReturnDate(LocalDate returnDate) {
 		this.returnDate = returnDate;
 	}
-	
+	public int getNumOfTravelers() {
+		return numOfTravelers;
+	}
+
+	public void setNumOfTravelers(int numOfTravelers) {
+		this.numOfTravelers = numOfTravelers;
+	}
+
 	@Override
 	public String toString() {
 		return "TempModelForFlightDetails [originAirportId=" + originAirportId + ", destinationAirportId="
-				+ destinationAirportId + ", departDate=" + departDate + ", returnDate=" + returnDate + "]";
+				+ destinationAirportId + ", departDate=" + departDate + ", returnDate=" + returnDate
+				+ ", numofTravelers=" + numOfTravelers + "]";
 	}
-	
-	
 }

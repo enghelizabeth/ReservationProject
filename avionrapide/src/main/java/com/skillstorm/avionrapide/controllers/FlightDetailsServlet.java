@@ -18,31 +18,38 @@ import com.skillstorm.avionrapide.services.FlightService;
  * Need to save the data and send to next page to load available flights
  *
  */
-@WebServlet({"/flightdetails"})
+@WebServlet("/pages/flightdetails")
 public class FlightDetailsServlet extends HttpServlet {
 	
 	FlightService flightService = new FlightService();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Worked");
+		int originZipcode, destinationZipcode;
 		
-		/*TempModelForFlightDetails flightInfo = new TempModelForFlightDetails();
-		flightInfo.setOriginAirportId(flightService.getAirportId(null, req.getParameter("originCity"), 
-				req.getParameter("originState"), Integer.parseInt(req.getParameter("originZipcode"))));
-		flightInfo.setDestinationAirportId(flightService.getAirportId(null, req.getParameter("destinationCity"), 
-				req.getParameter("destinationState"), Integer.parseInt(req.getParameter("destinationZipcode"))));
+		if(req.getParameter("originZipcode")== "") {
+			originZipcode = 0;
+		}else {
+			originZipcode = Integer.parseInt(req.getParameter("originZipcode"));
+		}
+		if(req.getParameter("destinationZipcode")== "") {
+			destinationZipcode = 0;
+		}else {
+			destinationZipcode = Integer.parseInt(req.getParameter("destinationZipcode"));
+		}
+		
+		TempModelForFlightDetails flightInfo = new TempModelForFlightDetails();
+		flightInfo.setOriginAirportId(flightService.getAirportId(req.getParameter("originAirport"), req.getParameter("originCity"), 
+				req.getParameter("originState"), originZipcode));
+		flightInfo.setDestinationAirportId(flightService.getAirportId(req.getParameter("destinationAirport"), req.getParameter("destinationCity"), 
+				req.getParameter("destinationState"), destinationZipcode));
 		flightInfo.setDepartDate(LocalDate.parse(req.getParameter("departDate")));
-		flightInfo.setReturnDate(LocalDate.parse(req.getParameter("departDate")));
+		flightInfo.setReturnDate(LocalDate.parse(req.getParameter("returnDate")));
+		flightInfo.setNumOfTravelers(Integer.parseInt(req.getParameter("numOfTravelers")));
 		
 		//System.out.println(flightInfo);
-		//req.getRequestDispatcher("selectflights.jsp").forward(req, resp);*/
-		resp.sendRedirect("/selectflights.jsp");
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Servlet");
+		req.getSession().setAttribute("flightInfo", flightInfo);
+		resp.sendRedirect("loadflights");
+		//req.getRequestDispatcher("loadflights").forward(req, resp);
 	}
 }
