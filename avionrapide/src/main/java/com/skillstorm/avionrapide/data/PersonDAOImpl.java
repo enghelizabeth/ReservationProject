@@ -27,10 +27,10 @@ public class PersonDAOImpl implements PersonDAO{
 	 * Otherwise, this works like a charm. 
 	 */
 	public void savePerson(Person person) throws SQLIntegrityConstraintViolationException{
-		final String INSERT_PERON = "insert into person(first_name, last_name, email, phone, birthdate) values (?, ?, ?, ?, ?)";
+		final String INSERT_PERSON = "insert into person(first_name, last_name, email, phone, birthdate) values (?, ?, ?, ?, ?)";
 
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			PreparedStatement stmt = connection.prepareStatement(INSERT_PERON);
+			PreparedStatement stmt = connection.prepareStatement(INSERT_PERSON);
 			stmt.setString(1, person.getFirstName());
 			stmt.setString(2, person.getLastName());
 			stmt.setString(3, person.getEmail());
@@ -51,7 +51,6 @@ public class PersonDAOImpl implements PersonDAO{
 	public Person findPersonByEmail(String email) {
 		final String FIND_BY_EMAIL = "select * from person where email = ?";
 		Person person = null;
-		
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			PreparedStatement stmt = connection.prepareStatement(FIND_BY_EMAIL);
 			stmt.setString(1, email);

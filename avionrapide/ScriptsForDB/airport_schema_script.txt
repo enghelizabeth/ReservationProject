@@ -1,0 +1,95 @@
+CREATE SCHEMA `avionrapide` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+
+CREATE TABLE `avionrapide`.`airport` (
+  `airport_id` INT NOT NULL AUTO_INCREMENT,
+  `airport_code` VARCHAR(3) NOT NULL,
+  `airport_name` VARCHAR(45) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `state_abbrev` VARCHAR(2) NOT NULL,
+  `zipcode` INT NOT NULL,
+  PRIMARY KEY (`airport_id`),
+  UNIQUE INDEX `airport_id_UNIQUE` (`airport_id` ASC) VISIBLE,
+  UNIQUE INDEX `airport_code_UNIQUE` (`airport_code` ASC) VISIBLE);
+
+CREATE TABLE `avionrapide`.`flight` (
+  `flight_number` INT NOT NULL,
+  `depart_date` DATE NOT NULL,
+  `depart_time` TIME NOT NULL,
+  `origin_airport_id` INT NOT NULL,
+  `destination_airport_id` INT NOT NULL,
+  `seats_available` TINYINT NOT NULL,
+  `ticket_cost` DECIMAL(5,2) NOT NULL,
+  PRIMARY KEY (`flight_number`),
+  UNIQUE INDEX `flight_number_UNIQUE` (`flight_number` ASC) VISIBLE);
+
+CREATE TABLE `avionrapide`.`person` (
+  `person_id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `birthdate` DATE NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`person_id`),
+  UNIQUE INDEX `person_id_UNIQUE` (`person_id` ASC) VISIBLE);
+
+CREATE TABLE `avionrapide`.`reservation` (
+  `confirmation_number` INT NOT NULL,
+  `num_seats_booked` TINYINT NOT NULL,
+  `person_id` INT NOT NULL,
+  `departing_flight_number` INT NOT NULL,
+  `returning_flight_number` INT NOT NULL,
+  PRIMARY KEY (`confirmation_number`),
+  UNIQUE INDEX `confirmation_number_UNIQUE` (`confirmation_number` ASC) VISIBLE);
+
+CREATE TABLE `avionrapide`.`state` (
+  `state_abbrev` VARCHAR(2) NOT NULL,
+  `state_name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`state_abbrev`),
+  UNIQUE INDEX `state_abbrev_UNIQUE` (`state_abbrev` ASC) VISIBLE,
+  UNIQUE INDEX `state_name_UNIQUE` (`state_name` ASC) VISIBLE);
+
+ALTER TABLE `avionrapide`.`flight` 
+ADD INDEX `origin_airport_id_idx` (`origin_airport_id` ASC) VISIBLE,
+ADD INDEX `destination_airport_id_idx` (`destination_airport_id` ASC) VISIBLE;
+;
+ALTER TABLE `avionrapide`.`flight` 
+ADD CONSTRAINT `origin_airport_id`
+  FOREIGN KEY (`origin_airport_id`)
+  REFERENCES `avionrapide`.`airport` (`airport_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `destination_airport_id`
+  FOREIGN KEY (`destination_airport_id`)
+  REFERENCES `avionrapide`.`airport` (`airport_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `avionrapide`.`reservation` 
+ADD INDEX `departing_flight_number_idx` (`departing_flight_number` ASC) VISIBLE,
+ADD INDEX `returning_flight_number_idx` (`returning_flight_number` ASC) VISIBLE,
+ADD INDEX `person_id_idx` (`person_id` ASC) VISIBLE;
+;
+ALTER TABLE `avionrapide`.`reservation` 
+ADD CONSTRAINT `departing_flight_number`
+  FOREIGN KEY (`departing_flight_number`)
+  REFERENCES `avionrapide`.`flight` (`flight_number`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `returning_flight_number`
+  FOREIGN KEY (`returning_flight_number`)
+  REFERENCES `avionrapide`.`flight` (`flight_number`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `person_id`
+  FOREIGN KEY (`person_id`)
+  REFERENCES `avionrapide`.`person` (`person_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `avionrapide`.`reservation` 
+ADD COLUMN `reservation_date` DATE NOT NULL AFTER `returning_flight_number`;
+
+ALTER TABLE `avionrapide`.`reservation` 
+CHANGE COLUMN `num_seats_booked` `num_seats_booked` TINYINT NULL ,
+CHANGE COLUMN `reservation_date` `reservation_date` DATE NULL ;

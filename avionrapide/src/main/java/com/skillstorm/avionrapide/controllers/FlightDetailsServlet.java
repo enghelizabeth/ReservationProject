@@ -21,7 +21,7 @@ import com.skillstorm.avionrapide.services.FlightService;
 @WebServlet("/pages/flightdetails")
 public class FlightDetailsServlet extends HttpServlet {
 	
-	FlightService flightService = new FlightService();
+	FlightService fService = new FlightService();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,13 +39,15 @@ public class FlightDetailsServlet extends HttpServlet {
 		}
 		
 		TempModelForFlightDetails flightInfo = new TempModelForFlightDetails();
-		flightInfo.setOriginAirportId(flightService.getAirportId(req.getParameter("originAirport"), req.getParameter("originCity"), 
+		flightInfo.setOriginAirportId(fService.getAirportId(req.getParameter("originAirport"), req.getParameter("originCity"), 
 				req.getParameter("originState"), originZipcode));
-		flightInfo.setDestinationAirportId(flightService.getAirportId(req.getParameter("destinationAirport"), req.getParameter("destinationCity"), 
+		flightInfo.setDestinationAirportId(fService.getAirportId(req.getParameter("destinationAirport"), req.getParameter("destinationCity"), 
 				req.getParameter("destinationState"), destinationZipcode));
 		flightInfo.setDepartDate(LocalDate.parse(req.getParameter("departDate")));
 		flightInfo.setReturnDate(LocalDate.parse(req.getParameter("returnDate")));
 		flightInfo.setNumOfTravelers(Integer.parseInt(req.getParameter("numOfTravelers")));
+		flightInfo.setOriginAirportCode(fService.getAiportCode(flightInfo.getOriginAirportId()));
+		flightInfo.setDestinationAirportCode(fService.getAiportCode(flightInfo.getDestinationAirportId()));
 		
 		//System.out.println(flightInfo);
 		req.getSession().setAttribute("flightInfo", flightInfo);

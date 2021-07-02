@@ -18,9 +18,7 @@ public interface ReservationDAO {
 	
 	public List<Reservation> getReservationsByPersonId(int personId);
 	
-	//public List<Reservation> getReservationsByEmail(String email);
-	
-	//public List<Reservation> getReservationsByPhoneNumber(String phoneNumber);
+	public int getConfirmationNumber(int personId, int departFlightNumber, int returnFlightNumber);
 	
 	public void deleteReservation(int confirm_num);
 	

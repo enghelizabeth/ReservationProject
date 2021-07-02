@@ -6,17 +6,19 @@ html {
 }
 
 body {
+	background-image: url(sunsetclouds.jpg);
 	/* Margin bottom by footer height */
 	margin-bottom: 60px;
 }
 
 .footer {
+	text-align: center;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 60px;
+	height: 40px;
 	justify-content: center;
-	background-color: #0099ff;
+	background-color: #5d57d9;
 }
 
 .formBox {
@@ -40,4 +42,23 @@ body {
 .tablePadding{
 	padding-left: 10px;
 	padding-right: 10px;
+}
+
+.formCustomerBox {
+	background-color: #acb8c2;
+	/* Center the form on the page */ 
+	margin : 0 auto;
+	width: 800px;
+	height: 350px;
+	/* Form outline */
+	padding: 1em;
+	padding-top:20px;
+	border: 1px solid #CCC;
+	border-radius: 1em;
+	margin: 0 auto;
+}
+
+.colPadding{
+	padding-top:10px;
+	padding-bottom:10px;
 }

@@ -23,11 +23,11 @@ public class FlightDAOImpl implements FlightDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * find all flights regardless of any parameters
 	 */
-	public List<Flight> findAll(){
+	public List<Flight> findAll() {
 		final String FIND_ALL = "select * from flight";
 
 		List<Flight> flights = new LinkedList<>();
@@ -35,8 +35,8 @@ public class FlightDAOImpl implements FlightDAO {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(FIND_ALL);
 			while (rs.next()) {
-				Flight object = new Flight(rs.getInt("flight_number"), rs.getObject("depart_date", LocalDate.class), rs.getTime("depart_time"),
-						rs.getInt("origin_airport_id"), rs.getInt("destination_airport_id"),
+				Flight object = new Flight(rs.getInt("flight_number"), rs.getObject("depart_date", LocalDate.class),
+						rs.getTime("depart_time"), rs.getInt("origin_airport_id"), rs.getInt("destination_airport_id"),
 						rs.getInt("seats_available"), rs.getBigDecimal("ticket_cost"));
 				flights.add(object);
 			}
@@ -49,13 +49,12 @@ public class FlightDAOImpl implements FlightDAO {
 	}
 
 	/**
-	 * find all flights based on date, and both airports
-	 * FIX THE DATE ON THIS
+	 * find all flights based on date, and both airports FIX THE DATE ON THIS
 	 */
 	public List<Flight> findAllFlights(int originAirportId, int destinationAirportId, LocalDate departDate) {
 		final String FIND_ALL = "select * from flight where origin_airport_id=? and destination_airport_id=? and depart_date=?";
 		List<Flight> flights = new LinkedList<>();
-		
+
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			PreparedStatement stmt = connection.prepareStatement(FIND_ALL);
 			stmt.setInt(1, originAirportId);
@@ -63,8 +62,8 @@ public class FlightDAOImpl implements FlightDAO {
 			stmt.setDate(3, java.sql.Date.valueOf(departDate));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Flight object = new Flight(rs.getInt("flight_number"), rs.getObject("depart_date", LocalDate.class), rs.getTime("depart_time"),
-						rs.getInt("origin_airport_id"), rs.getInt("destination_airport_id"),
+				Flight object = new Flight(rs.getInt("flight_number"), rs.getObject("depart_date", LocalDate.class),
+						rs.getTime("depart_time"), rs.getInt("origin_airport_id"), rs.getInt("destination_airport_id"),
 						rs.getInt("seats_available"), rs.getBigDecimal("ticket_cost"));
 				flights.add(object);
 			}
@@ -72,6 +71,25 @@ public class FlightDAOImpl implements FlightDAO {
 			e.printStackTrace();
 		}
 		return flights;
+	}
+
+	public Flight findFlightByNumber(int flightNumber) {
+		final String FIND_FLIGHT_BY_FLIGHT_NUMBER = "select * from flight where flight_number=?";
+		Flight flight = null;
+
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+			PreparedStatement stmt = connection.prepareStatement(FIND_FLIGHT_BY_FLIGHT_NUMBER);
+			stmt.setInt(1, flightNumber);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			flight = new Flight(rs.getInt("flight_number"), rs.getObject("depart_date", LocalDate.class),
+					rs.getTime("depart_time"), rs.getInt("origin_airport_id"), rs.getInt("destination_airport_id"),
+					rs.getInt("seats_available"), rs.getBigDecimal("ticket_cost"));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flight;
 	}
 
 	/**
@@ -80,7 +98,7 @@ public class FlightDAOImpl implements FlightDAO {
 	public int seatAvailable(int flightNumber) {
 		final String FIND_SEATS_AVAILABLE = "select seats_available from flight where flight_number=?";
 		int seatsAvail = 0;
-		
+
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			PreparedStatement stmt = connection.prepareStatement(FIND_SEATS_AVAILABLE);
 			stmt.setInt(1, flightNumber);

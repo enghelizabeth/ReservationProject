@@ -19,4 +19,6 @@ public interface FlightDAO {
 	
 	public void updateSeats(int updatedSeatsAvail, int flightNumber);
 	
+	public Flight findFlightByNumber(int flightNumber);
+	
 }

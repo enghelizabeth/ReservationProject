@@ -92,6 +92,25 @@ public class ReservationDAOImpl implements ReservationDAO {
 		return reservations;
 
 	}
+	
+	public int getConfirmationNumber(int personId, int departFlightNumber, int returnFlightNumber) {
+		final String FIND_RES_BY_CONFIRM_NUM = "select confirmation_number from reservation where person_id=? and departing_flight_number=? and returning_flight_number=?";
+		int confirmationNumber = 0;
+
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+			PreparedStatement stmt = connection.prepareStatement(FIND_RES_BY_CONFIRM_NUM);
+			stmt.setInt(1, personId);
+			stmt.setInt(2, departFlightNumber);
+			stmt.setInt(3, returnFlightNumber);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			confirmationNumber = rs.getInt("confirmation_number");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return confirmationNumber;
+		
+	}
 
 	/**
 	 * come back and work on this at a later date
